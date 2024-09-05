@@ -1,10 +1,16 @@
 import { useActiveId, useJobItem } from "../lib/hooks";
 
 import BookmarkIcon from "./BookmarkIcon";
+import Spinner from "./Spinner";
 
 export default function JobItemContent() {
   const activeId = useActiveId();
-  const jobItem = useJobItem(activeId);
+  const { jobItem, isLoading } = useJobItem(activeId);
+
+  if (isLoading) {
+    return <LoadingJobContent />;
+  }
+
   if (!jobItem) {
     return <EmptyJobContent />;
   }
@@ -58,8 +64,8 @@ export default function JobItemContent() {
               </p>
             </div>
             <ul className="qualifications__list">
-              {jobItem.qualifications.map((qualification) => (
-                <li className="qualifications__item">{qualification}</li>
+              {jobItem.qualifications.map((qualification, index) => (
+                <li key={index} className="qualifications__item">{qualification}</li>
               ))}
             </ul>
           </section>
@@ -86,6 +92,16 @@ export default function JobItemContent() {
             it!
           </p>
         </footer>
+      </div>
+    </section>
+  );
+}
+
+function LoadingJobContent() {
+  return (
+    <section className="job-details">
+      <div>
+        <Spinner />
       </div>
     </section>
   );
