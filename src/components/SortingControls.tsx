@@ -1,15 +1,46 @@
-export default function Sorting() {
+import { SortBy } from "../lib/types";
+
+type SortingControlprops = {
+  onClick: (newSortBy: SortBy) => void;
+  sortBy: SortBy;
+};
+
+export default function Sorting({ onClick, sortBy }: SortingControlprops) {
   return (
     <section className="sorting">
       <i className="fa-solid fa-arrow-down-short-wide"></i>
 
-      <button className="sorting__button sorting__button--relevant">
+      <SortingButton
+        onClick={() => onClick("relevant")}
+        isActive={sortBy === "relevant"}
+      >
         Relevant
-      </button>
-
-      <button className="sorting__button sorting__button--recent">
+      </SortingButton>
+      <SortingButton
+        onClick={() => onClick("recent")}
+        isActive={sortBy === "recent"}
+      >
         Recent
-      </button>
+      </SortingButton>
     </section>
+  );
+}
+
+type SortingButtonProps = {
+  onClick: () => void;
+  isActive: boolean;
+  children: React.ReactNode;
+};
+
+function SortingButton({ onClick, isActive, children }: SortingButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={`sorting__button sorting__button--relevant ${
+        isActive ? "sorting__button--active" : ""
+      }`}
+    >
+      {children}
+    </button>
   );
 }
