@@ -23,6 +23,7 @@ function App() {
   const { jobItems, isLoading } = useJobItems(debouncedSearchText);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortBy>("relevant");
+  
 
   const totalJobItems = jobItems?.length || 0;
   const totalNumberOfPages = totalJobItems / 7;

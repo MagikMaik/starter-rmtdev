@@ -1,7 +1,6 @@
 import { JobItem } from "../lib/types";
 import BookmarkIcon from "./BookmarkIcon";
 
-
 type JobListItemsProps = {
   jobItem: JobItem;
   isActive: boolean;
@@ -19,7 +18,7 @@ export default function JobListItem({ jobItem, isActive }: JobListItemsProps) {
         </div>
 
         <div className="job-item__right">
-          <BookmarkIcon />
+          <BookmarkIcon id={jobItem.id} />
           <time className="job-item__time">{jobItem.daysAgo}d</time>
         </div>
       </a>
